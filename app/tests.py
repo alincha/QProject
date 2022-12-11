@@ -1,6 +1,6 @@
 from script import *
 
-convert_dna_to_rna_test_cases = {
+transcribe_correct_test_cases = {
     'ATTTGGCTACTAACAATCTA': 'AUUUGGCUACUAACAAUCUA',
     'GTTGTAATGGCCTACATTA': 'GUUGUAAUGGCCUACAUUA',
     'CAGGTGGTGTTGTTCAGTT': 'CAGGUGGUGUUGUUCAGUU',
@@ -23,7 +23,7 @@ convert_rna_to_protein_test_cases = {
 
 def test_convert_dna_to_rna():
     failed_tests = 0
-    for key, value in convert_dna_to_rna_test_cases.items():
+    for key, value in transcribe_correct_test_cases.items():
         if not (value == convert_dna_to_rna(key)):
             print(f'invalid convert_dna_to_rna result for {key}; expected {value}, got {convert_dna_to_rna(key)}')
             failed_tests += 1
