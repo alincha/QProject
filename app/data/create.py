@@ -1,18 +1,18 @@
+import sqlalchemy.orm
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import sessionmaker
 from data.db import Base, DNA, RNA, AminoAcid, Gencode
 
-engine: Engine = create_engine("sqlite:///app/data/gencode.db")  # echo=True
-Session = sessionmaker(bind=engine)
 
-
-def init_db():
+def init_db() -> sqlalchemy.orm.sessionmaker:
+    engine: Engine = create_engine("sqlite:///app/data/gencode.db")  # echo=True
+    Session = sessionmaker(bind=engine)
     Base.metadata.create_all(engine)
 
     with Session() as session:
         if session.query(DNA.nucleotide).count() != 0:
-            return
+            return Session
 
         dna_bases = [
             DNA(nucleotide='A'),
@@ -170,3 +170,5 @@ def init_db():
                                 nuc3=third_base, amino_acid=amino_acid))
         session.add_all(gencode)
         session.commit()
+
+    return Session

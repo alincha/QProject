@@ -21,19 +21,21 @@ convert_rna_to_protein_test_cases = {
 }
 
 
-def test_convert_dna_to_rna():
+def test_convert_dna_to_rna(Session: sqlalchemy.orm.sessionmaker):
     failed_tests = 0
-    for key, value in transcribe_correct_test_cases.items():
-        if not (value == convert_dna_to_rna(key)):
-            print(f'invalid convert_dna_to_rna result for {key}; expected {value}, got {convert_dna_to_rna(key)}')
+    for key, expected in transcribe_correct_test_cases.items():
+        got = convert_dna_to_rna(Session, key)
+        if not (expected == got):
+            print(f'invalid convert_dna_to_rna result for {key}; expected {expected}, got {got}')
             failed_tests += 1
     print(f'Number of failed tests of convert_dna_to_rna:{failed_tests}')
 
 
-def test_convert_rna_to_protein():
+def test_convert_rna_to_protein(Session: sqlalchemy.orm.sessionmaker):
     failed_tests = 0
-    for key, value in convert_rna_to_protein_test_cases.items():
-        if not (value == convert_rna_to_protein(key)):
-            print(f'invalid rna_to_protein result for {key}; expected {value}, got {convert_rna_to_protein(key)}')
+    for key, expected in convert_rna_to_protein_test_cases.items():
+        got = convert_rna_to_protein(Session, key)
+        if not (expected == got):
+            print(f'invalid rna_to_protein result for {key}; expected {expected}, got {got}')
             failed_tests += 1
     print(f'Number of failed tests of convert_rna_to_protein:{failed_tests}')

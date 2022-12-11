@@ -1,7 +1,8 @@
-from data.create import Session, RNA, AminoAcid, Gencode
+from data.db import RNA, Gencode
+import sqlalchemy.orm
 
 
-def convert_dna_to_rna(dna):
+def convert_dna_to_rna(Session: sqlalchemy.orm.sessionmaker, dna):
     rna = ''
     with Session() as session:
         for base in dna:
@@ -10,7 +11,7 @@ def convert_dna_to_rna(dna):
     return rna
 
 
-def convert_rna_to_protein(rna):
+def convert_rna_to_protein(Session: sqlalchemy.orm.sessionmaker, rna):
     codons = []
     for i in range(0, len(rna), 3):
         codon = rna[i:i + 3]
