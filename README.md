@@ -31,6 +31,8 @@ The central files are main.py and script.py.
 
 The project creates an SQLite database usig SQLAlchemy. All database-related files live in app/data.
 
+Database address is stored in the config.py as DATABASE_URI.
+
 Test cases live in test.py.
 
 
