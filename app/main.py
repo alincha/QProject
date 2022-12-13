@@ -14,5 +14,5 @@ if __name__ == '__main__':
         print(script.convert_dna_to_rna(Session, arg))
     elif op == 'translate':
         print(script.convert_rna_to_protein(Session, arg))
-    # else:
-    #     exit(1)
+    else:
+        exit(1)

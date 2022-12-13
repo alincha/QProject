@@ -6,9 +6,6 @@ from data.db import Base, DNA, RNA, AminoAcid, Gencode
 
 
 def init_db(uri) -> sqlalchemy.orm.sessionmaker:
-    print("___\n\n")
-    print("URI: ", uri)
-    print("___\n\n")
     engine: Engine = create_engine(uri)
     Session = sessionmaker(bind=engine)
     Base.metadata.create_all(engine)
