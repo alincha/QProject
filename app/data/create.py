@@ -5,8 +5,11 @@ from sqlalchemy.orm import sessionmaker
 from data.db import Base, DNA, RNA, AminoAcid, Gencode
 
 
-def init_db() -> sqlalchemy.orm.sessionmaker:
-    engine: Engine = create_engine("sqlite:///app/data/gencode.db")  # echo=True
+def init_db(uri) -> sqlalchemy.orm.sessionmaker:
+    print("___\n\n")
+    print("URI: ", uri)
+    print("___\n\n")
+    engine: Engine = create_engine(uri)
     Session = sessionmaker(bind=engine)
     Base.metadata.create_all(engine)
 
@@ -21,6 +24,7 @@ def init_db() -> sqlalchemy.orm.sessionmaker:
             DNA(nucleotide='T'),
         ]
         session.add_all(dna_bases)
+        session.commit()
 
         rna_bases = [
             RNA(nucleotide='A', corr_dna_base='A'),
@@ -29,6 +33,7 @@ def init_db() -> sqlalchemy.orm.sessionmaker:
             RNA(nucleotide='U', corr_dna_base='T'),
         ]
         session.add_all(rna_bases)
+        session.commit()
 
         amino_acids = [
             AminoAcid(amino_acid='A'),
@@ -54,6 +59,7 @@ def init_db() -> sqlalchemy.orm.sessionmaker:
             AminoAcid(amino_acid='.'),
         ]
         session.add_all(amino_acids)
+        session.commit()
 
         gencode_map = {
             "A": {
